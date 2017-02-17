@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Launch pd and connect it to Teensy midi device for output and a generic usb interface for input
+# Based on a script at tedfelix.com/linux/linux-midi.html
+# And parts from guitarextended.wordpress.com/2012/08/28/running-pd-on-a-headless-raspberry-pi/
+
+#launches a pd patch with alsa-midi support, connects a teensy-midi out to pd midi-in
+
+#make this script executable: sudo chmod 755 launch
+#add link/path to first line after comments in /etc/rc.local on the pi
+echo "Starting Pd..."
+pd -nogui -alsamidi -midiindev 1 -midioutdev 1 /home/pi/touch_podiums/podium_pd.pd &
+
+sleep 5
+
+#use aconnect to get the ports
+pdin=$(aconnect -i | grep "Pure Data" | cut -d ' ' -f 2)0
+teensyout=$(aconnect -o | grep "Teensy" | cut -d ' ' -f 2)0
+
+echo pdin: $pdin
+echo teensyout: $teensyout
+
+aconnect $teensyout $pdin &

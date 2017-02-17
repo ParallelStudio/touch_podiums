@@ -1,17 +1,7 @@
 #N canvas 983 217 776 670 10;
 #X obj 279 20 inlet;
 #X obj 258 444 outlet;
-#X msg 347 30 list backing_beat guitar_2 guitar horns piano_ vox_1
-vox_2 wash_1 wash_2 wash_3;
-#X obj 26 22 table backing_beat;
-#X obj 27 49 table guitar_2;
-#X obj 28 76 table guitar;
-#X obj 27 101 table horns;
-#X obj 29 128 table piano_;
-#X obj 29 155 table vox_1;
-#X obj 30 182 table vox_2;
-#X obj 31 209 table wash_1;
-#X obj 32 236 table wash_2;
-#X obj 31 261 table wash_3;
+#X msg 347 30 list Trigger_04_voiceL;
+#X obj 26 22 table Trigger_04_voiceL;
 #X connect 0 0 2 0;
 #X connect 2 0 1 0;
