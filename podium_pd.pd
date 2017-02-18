@@ -8,7 +8,7 @@
 #X obj 129 334 netsend -u -b;
 #X obj 261 236 loadbang;
 #X text 413 264 ip of mac mini goes here;
-#X msg 260 266 connect localhost 13000;
+#X msg 260 266 connect 10.0.1.10 13000;
 #X connect 0 0 1 0;
 #X connect 0 1 1 1;
 #X connect 1 0 4 0;
