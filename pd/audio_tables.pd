@@ -1,21 +1,20 @@
-#N canvas 983 217 776 670 10;
+#N canvas 49 294 776 670 10;
 #X obj 279 20 inlet;
 #X obj 258 444 outlet;
 #X obj 26 22 table Trigger_04_voiceL;
-#X obj 44 73 table beat_03L;
-#X msg 347 30 list beat_03L beat_03R Trigger_01_pianoL Trigger_01_pianoR
-Trigger_02_guitarL Trigger_02_guitarR Trigger_03_hornsL Trigger_03_hornsR
-Trigger_04_voiceL Trigger_04_voiceR Trigger_05L Trigger_05R;
-#X obj 43 98 table beat_03R;
-#X obj 41 148 table Trigger_01_pianoL;
-#X obj 37 233 table Trigger_02_guitarL;
-#X obj 38 311 table Trigger_03_hornsL;
-#X obj 36 381 table Trigger_04_voiceL;
-#X obj 40 454 table Trigger_05L;
-#X obj 40 176 table Trigger_01_pianoR;
-#X obj 36 257 table Trigger_02_guitarR;
-#X obj 39 336 table Trigger_03_hornsR;
-#X obj 36 404 table Trigger_04_voiceR;
-#X obj 39 476 table Trigger_05R;
-#X connect 0 0 4 0;
-#X connect 4 0 1 0;
+#X obj 44 73 table Beat_L;
+#X obj 43 98 table Beat_R;
+#X obj 41 148 table Trigger_1L;
+#X obj 40 176 table Trigger_1R;
+#X obj 37 233 table Trigger_2L;
+#X obj 36 257 table Trigger_2R;
+#X obj 38 311 table Trigger_3L;
+#X obj 39 336 table Trigger_3R;
+#X obj 36 381 table Trigger_4L;
+#X obj 36 404 table Trigger_4R;
+#X obj 40 454 table Trigger_5L;
+#X obj 39 476 table Trigger_5R;
+#X msg 347 30 list Beat_L Beat_R Trigger_1L Trigger_1R Trigger_2L Trigger_2R
+Trigger_3L Trigger_3R Trigger_4L Trigger_4R Trigger_5L Trigger_5R;
+#X connect 0 0 15 0;
+#X connect 15 0 1 0;
