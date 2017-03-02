@@ -24,7 +24,7 @@
 #X msg 206 386 All sound files loaded;
 #X obj 206 408 print;
 #X text 121 254 formerly had '-maxsize 4e+07' after -resize;
-#X msg 45 234 read -resize -maxsize 1e+08 \$1.wav \$1;
+#X msg 45 234 read -resize -maxsize 1e+10 \$1.wav \$1;
 #X connect 0 0 5 0;
 #X connect 1 0 6 0;
 #X connect 1 1 2 0;

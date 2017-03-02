@@ -1,9 +1,7 @@
-#N canvas 49 294 776 670 10;
+#N canvas 238 260 776 670 10;
 #X obj 279 20 inlet;
 #X obj 258 444 outlet;
 #X obj 26 22 table Trigger_04_voiceL;
-#X obj 44 73 table Beat_L;
-#X obj 43 98 table Beat_R;
 #X obj 41 148 table Trigger_1L;
 #X obj 40 176 table Trigger_1R;
 #X obj 37 233 table Trigger_2L;
@@ -14,7 +12,7 @@
 #X obj 36 404 table Trigger_4R;
 #X obj 40 454 table Trigger_5L;
 #X obj 39 476 table Trigger_5R;
-#X msg 347 30 list Beat_L Beat_R Trigger_1L Trigger_1R Trigger_2L Trigger_2R
-Trigger_3L Trigger_3R Trigger_4L Trigger_4R Trigger_5L Trigger_5R;
-#X connect 0 0 15 0;
-#X connect 15 0 1 0;
+#X msg 347 30 list Trigger_1L Trigger_1R Trigger_2L Trigger_2R Trigger_3L
+Trigger_3R Trigger_4L Trigger_4R Trigger_5L Trigger_5R;
+#X connect 0 0 13 0;
+#X connect 13 0 1 0;
