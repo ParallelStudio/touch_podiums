@@ -48,12 +48,11 @@ class AnalogInputButton {
       //baseline not affected while switch on if mBaselineAlways is false
       //Baseline adjustment rate determined by mBaselineRate
       mBaselineCount = (mBaselineCount+1) % mBaselineRate;
-      if (mBaselineCount==0 && (mBaselineAlways || abs(difference) < mNoise)) {
-
-        //reset baseline if negative by more than threshold value
+      if (mBaselineCount==0) {
+        //neg reset
         if (difference < -mThreshold) {
-          mBaseline=mLastResult;
-        } else {
+          mInitialized = false;
+        } else if (mBaselineAlways || abs(difference) < mNoise) {
           mBaseline += difference > 0 ? 1 :
                        (difference < 0 ? -1 : 0);
         }
