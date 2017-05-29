@@ -14,9 +14,11 @@ const AnalogInputButtonInit btn_init = {
   .threshold = 200,
   .hysteresis = 50,
   .baseline_period_ticks = 100,
-  .baseline_always = false,
+  .baseline_always = true,
   .timeout_ticks = 1000,
-  .noise = 10
+  .noise = 10,
+  .neg_reset_periods = 5,
+  .debounce_ticks = 5,
 };
 
 AnalogInputButton cap_button(&btn_init);

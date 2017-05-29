@@ -8,6 +8,8 @@ struct AnalogInputButtonInit {
   bool baseline_always; //adjust baseline regardless of sensor state and noise level
   uint32_t timeout_ticks; //if nonzero, max sensor on time in ticks. Sensor state and baseline will reset if on that long.
   uint32_t noise; //noise level for baseline adjustent, unless baseline_always
+  uint32_t neg_reset_periods;
+  uint32_t debounce_ticks;
 };
 
 class AnalogInputButton {
@@ -25,8 +27,12 @@ class AnalogInputButton {
     , mBaselineRate(init->baseline_period_ticks)
     , mBaselineAlways(init->baseline_always)
     , mTimeOn(0)
-    , mTimeoutTicks(init->timeout_ticks) {
-    }
+    , mTimeoutTicks(init->timeout_ticks)
+    , mNegativeResetPeriods(init->neg_reset_periods)
+    , mNegativeResetCounter(0)
+    , mDebounceTicks(init->debounce_ticks)
+    , mDebounceCounter(0) {
+   }
 
     bool Update(const int32_t value) {
       mLastResult = value;
@@ -37,6 +43,9 @@ class AnalogInputButton {
         mBaseline=mLastResult;
         mInitialized=true;
         mBaselineCount=0;
+        mNegativeResetCounter=0;
+        mDebounceCounter=0;
+        mTimeOn=0;
       }
 
       //compute sensor level as difference between raw and baseline
@@ -50,9 +59,17 @@ class AnalogInputButton {
       mBaselineCount = (mBaselineCount+1) % mBaselineRate;
       if (mBaselineCount==0) {
         //neg reset
-        if (difference < -mThreshold) {
-          mInitialized = false;
-        } else if (mBaselineAlways || abs(difference) < mNoise) {
+        if (difference < -mNoise) {
+          mNegativeResetCounter += 1;
+          if (mNegativeResetCounter >= mNegativeResetPeriods) {
+            mInitialized = false;
+          }
+        } else {
+          mNegativeResetCounter = 0;
+        }
+        
+        //normal baseline adjustment
+        if (mBaselineAlways || abs(difference) < mNoise) {
           mBaseline += difference > 0 ? 1 :
                        (difference < 0 ? -1 : 0);
         }
@@ -60,12 +77,22 @@ class AnalogInputButton {
 
       //Check switch state
       if (!mSwitchState && difference > (mThreshold+mHysteresis)) {
-        mSwitchState = true;
-        mChanged = true;
-        mTimeOn = 0;
+        if (mDebounceCounter < mDebounceTicks) {
+          mDebounceCounter += 1;
+        }
+        if (mDebounceCounter == mDebounceTicks) {
+          mSwitchState = true;
+          mChanged = true;
+          mTimeOn = 0;
+        }
       } else if (mSwitchState && difference < (mThreshold-mHysteresis)) {
-        mSwitchState=false;
-        mChanged=true;
+        if (mDebounceCounter > 0) {
+          mDebounceCounter -= 1;
+        }
+        if (mDebounceCounter == 0) {
+          mSwitchState=false;
+          mChanged=true;
+        }
       } else {
       }
 
@@ -166,6 +193,12 @@ class AnalogInputButton {
 
     uint32_t mTimeOn;
     uint32_t mTimeoutTicks;
+
+    uint32_t mNegativeResetPeriods;
+    uint32_t mNegativeResetCounter;
+
+    uint32_t mDebounceTicks;
+    uint32_t mDebounceCounter;
 };
 
 #endif //#ifndef __ANALOG_INPUT_BUTTON_H__
