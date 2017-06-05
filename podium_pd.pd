@@ -1,4 +1,4 @@
-#N canvas 480 125 643 473 10;
+#N canvas 317 115 643 473 10;
 #X obj 132 40 notein;
 #X obj 132 73 stripnote;
 #X obj 132 170 list prepend send;
@@ -7,11 +7,11 @@
 #X msg 344 304 disconnect;
 #X obj 129 334 netsend -u -b;
 #X obj 260 204 loadbang;
-#X text 413 264 ip of mac mini goes here;
-#X msg 260 266 connect 10.0.1.10 13000;
+#X text 452 266 ip of mac mini goes here;
 #X obj 260 232 delay 10000;
 #X text 339 231 10 second delay waiting for networking to get ready
 ;
+#X msg 260 266 connect 192.168.1.10 13000;
 #X connect 0 0 1 0;
 #X connect 0 1 1 1;
 #X connect 1 0 4 0;
@@ -19,6 +19,6 @@
 #X connect 3 0 6 0;
 #X connect 4 0 2 0;
 #X connect 5 0 6 0;
-#X connect 7 0 10 0;
-#X connect 9 0 6 0;
-#X connect 10 0 9 0;
+#X connect 7 0 9 0;
+#X connect 9 0 11 0;
+#X connect 11 0 6 0;
