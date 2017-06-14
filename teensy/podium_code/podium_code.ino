@@ -1,6 +1,6 @@
 #include "AnalogInputButton.h"
 
-int noteNumber = 1; //change per teensy
+int noteNumber = 2; //change per teensy
 
 int sensorPin = 15;
 
@@ -11,14 +11,14 @@ int sensorPin = 15;
 //noise should be set at how much noise, +/-, you get with the sensor off. The baseline level will update if the sensor value is within current value +/- noise.
 //if baseline_always is on, noise is ignored, and the baseline will adjust regardless of the on/off state or current level
 const AnalogInputButtonInit btn_init = {
-  .threshold = 1600,
-  .hysteresis = 50,
+  .threshold = 800,
+  .hysteresis = 10,
   .baseline_period_ticks = 100,
   .baseline_always = true,
   .timeout_ticks = 1000,
-  .noise = 10,
+  .noise = 40,
   .neg_reset_periods = 5,
-  .debounce_ticks = 5,
+  .debounce_ticks = 2,
 };
 
 AnalogInputButton cap_button(&btn_init);
